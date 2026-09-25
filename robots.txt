@@ -1,3 +1,8 @@
 # Temporary private review copy — not the live site
+# Allow only OpenAI's user-initiated browser (for the requested ChatGPT review); block every other crawler.
+# Every page also carries <meta name="robots" content="noindex,nofollow">.
+User-agent: ChatGPT-User
+Allow: /
+
 User-agent: *
 Disallow: /
