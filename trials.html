@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex,nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tinnitus Clinical Trials — Interactive Browser | Tinnitus Evidence</title>
+<meta name="description" content="Browse and watch registered tinnitus clinical trials — phases, statuses and sponsors, verified weekly against ClinicalTrials.gov.">
+<meta property="og:site_name" content="Tinnitus Evidence">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tinnitus Clinical Trials — Interactive Browser">
+<meta property="og:description" content="Browse and watch registered tinnitus clinical trials — phases, statuses and sponsors, verified weekly against ClinicalTrials.gov.">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="canonical" href="https://tinnitusevidence.com/trials/">
+<meta property="og:url" content="https://tinnitusevidence.com/trials/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Tinnitus Clinical Trials">
+<meta name="twitter:description" content="Browse and watch registered tinnitus clinical trials — phases, statuses and sponsors, verified weekly against ClinicalTrials.gov.">
+<meta name="twitter:image" content="https://tinnitusevidence.com/icons/share.png">
+<meta property="og:image" content="https://tinnitusevidence.com/icons/share.png">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="trials">
+<a class="skip-link" href="#content">Skip to content</a>
+<main id="content" class="wrap">
+  <section class="hero" style="padding-bottom:0">
+    <h1>Clinical trials</h1>
+    <p class="lead">The studies that could change tinnitus treatment, with status and estimated completion dates
+    from ClinicalTrials.gov. Only verifiable dates are shown.</p>
+  </section>
+  <div class="searchbar" role="search"><span aria-hidden="true">🔎</span>
+    <input id="trsearch" type="search" placeholder="Search trials, sponsors, NCT numbers…" aria-label="Search trials"></div>
+  <div class="chips" id="trial-chips" role="group" aria-label="Filter trials">
+    <button class="chip" data-k="status" data-v="recruit">Recruiting</button>
+    <button class="chip" data-k="status" data-v="active">Active</button>
+    <button class="chip" data-k="status" data-v="complete">Completed</button>
+    <button class="chip" data-k="phase" data-v="2">Phase 2</button>
+    <button class="chip" data-k="phase" data-v="3">Phase 3</button>
+  </div>
+  <p class="small muted" id="near-note" style="margin:-6px 0 12px"></p>
+  <details class="method" style="margin-bottom:14px"><summary>How the watched trials break down by status</summary>
+    <div id="trchart"></div></details>
+  <div id="trlist" class="grid grid-2" style="margin-top:6px"></div>
+</main>
+<footer class="footer-links"><div class="wrap"><p class="small">
+<a href="treatments/">Tinnitus treatments</a> · <a href="trials/">Clinical trials</a> ·
+<a href="research/">Research records</a> · <a href="ask/">Ask Tinnitus Evidence</a> · <a href="research-questions/">Research questions</a> · <a href="guides/tinnitus-treatments/">What has the strongest evidence?</a> ·
+<a href="guides/tinnitus-loudness-vs-distress/">Loudness vs distress</a> · <a href="research.html">This week in tinnitus research</a> ·
+<a href="about.html">About &amp; methodology</a> · <a href="about.html#limitations">Research limitations</a> ·
+<a href="about.html#corrections">Corrections &amp; editorial integrity</a> · <a href="about.html#disclaimer">Medical disclaimer</a>
+</p></div></footer>
+<script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+{
+  "schedule": "Every Monday 06:00 America/Los_Angeles (timezone-aware — stays 6 AM Pacific through PST/PDT) via GitHub Actions (.github/workflows/weekly.yml); local Task Scheduler task disabled",
+  "nextScheduled": "2026-09-28 06:00 America/Los_Angeles",
+  "lastAttempt": "2026-09-21T18:23:10",
+  "sources": [
+    {
+      "name": "PubMed (title/abstract + MeSH)",
+      "checked": true,
+      "count": 14,
+      "error": null
+    },
+    {
+      "name": "ClinicalTrials.gov (condition + full-text)",
+      "checked": true,
+      "count": 6,
+      "error": null
+    },
+    {
+      "name": "Watched feeds (FDA press, NIH, journals)",
+      "checked": true,
+      "count": 0,
+      "error": null
+    },
+    {
+      "name": "FDA databases (510k/PMA/MAUDE — openFDA)",
+      "checked": true,
+      "count": 0,
+      "error": null
+    },
+    {
+      "name": "News-wire intelligence (labeled, never evidence)",
+      "checked": true,
+      "count": 0,
+      "error": null
+    },
+    {
+      "name": "Guideline page watcher (AAO-HNSF, NICE)",
+      "checked": true,
+      "count": 1,
+      "error": null
+    }
+  ],
+  "examined": 21,
+  "newItems": 20,
+  "published": 4,
+  "rejectedDuplicates": 1,
+  "rejectedIrrelevant": 10,
+  "held": 1,
+  "publishedUnderEvaluation": 0,
+  "heldAwaitingEvaluation": 0,
+  "trialStatusUpdates": 0,
+  "errors": [],
+  "archived": 4,
+  "lastSuccess": "2026-09-21T18:23:10"
+}

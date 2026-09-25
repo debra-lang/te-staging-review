@@ -1,0 +1,29 @@
+{
+  "reports": [
+    {
+      "date": "2026-09-21",
+      "file": "2026-09-21.json",
+      "title": "Automated weekly scan — 4 update(s)"
+    },
+    {
+      "date": "2026-09-14",
+      "file": "2026-09-14.json",
+      "title": "Automated weekly scan — 24 update(s)"
+    },
+    {
+      "date": "2026-09-07",
+      "file": "2026-09-07.json",
+      "title": "Automated weekly scan — 8 update(s)"
+    },
+    {
+      "date": "2026-09-04",
+      "file": "2026-09-04.json",
+      "title": "Automated weekly scan — 1 update(s)"
+    },
+    {
+      "date": "2026-09-03",
+      "file": "2026-09-03.json",
+      "title": "Launch edition — the state of the field, September 2026"
+    }
+  ]
+}

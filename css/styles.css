@@ -1,0 +1,882 @@
+/* Tinnitus Atlas — design system. Mobile-first, DARK by default, light via [data-theme=light]. */
+
+:root{
+  --bg:#0c1120; --surface:#141b30; --surface-2:#1b2340; --text:#e8ecf7; --muted:#98a2bb;
+  --line:#242e4d; --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px -14px rgba(0,0,0,.6);
+  --brand-1:#0ea5b7; --brand-2:#5458e8;
+  --grad-brand:linear-gradient(135deg,#0ea5b7,#5458e8);
+  --c-strong:#34d39b;  --c-strong-bg:#0e2b22;  --c-strong-line:#1c4a3a;
+  --c-promising:#6ea1ff;--c-promising-bg:#14213e;--c-promising-line:#263a66;
+  --c-emerging:#b48aff; --c-emerging-bg:#241b3e; --c-emerging-line:#3d2f63;
+  --c-watch:#f0a944;   --c-watch-bg:#2e2210;   --c-watch-line:#4d3a1d;
+  --c-weak:#8b96ad;    --c-weak-bg:#1b2236;    --c-weak-line:#2c3552;
+  --r:16px; --r-sm:10px;
+  --font-display:"Sora",system-ui,sans-serif;
+  --font-body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:dark;
+}
+:root[data-theme="light"]{
+  --bg:#f5f7fc; --surface:#ffffff; --surface-2:#eef2fa; --text:#151a2b; --muted:#5b6478;
+  --line:#e3e8f4; --shadow:0 1px 2px rgba(21,26,43,.05),0 8px 24px -12px rgba(21,26,43,.12);
+  --c-strong:#0f9d6c;  --c-strong-bg:#e2f6ee;  --c-strong-line:#b5e6d2;
+  --c-promising:#2f6fe4;--c-promising-bg:#e7eefc;--c-promising-line:#c3d5f7;
+  --c-emerging:#7c4fd8; --c-emerging-bg:#f0eafc; --c-emerging-line:#d9c9f5;
+  --c-watch:#c77414;   --c-watch-bg:#fdf1df;   --c-watch-line:#f2d9ae;
+  --c-weak:#68738a;    --c-weak-bg:#eceff5;    --c-weak-line:#d5dae6;
+  color-scheme:light;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--bg);color:var(--text);font:16px/1.6 var(--font-body);
+  padding-bottom:calc(72px + env(safe-area-inset-bottom));
+}
+@media(min-width:1180px){body{padding-bottom:0}}
+img{max-width:100%}
+a{color:var(--c-promising);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3,h4{font-family:var(--font-display);line-height:1.25;margin:0 0 .5em;letter-spacing:-.01em}
+h1{font-size:clamp(1.7rem,5.5vw,2.6rem);font-weight:700}
+h2{font-size:clamp(1.25rem,3.6vw,1.7rem);font-weight:700}
+h3{font-size:1.08rem;font-weight:600}
+p{margin:.4em 0 .9em}
+[hidden]{display:none!important}
+.small{font-size:.86rem}.muted{color:var(--muted)}
+.skip-link{position:absolute;left:-999px}
+.skip-link:focus{left:12px;top:12px;background:var(--surface);padding:8px 14px;border-radius:8px;z-index:99}
+
+.wrap{max-width:1120px;margin:0 auto;padding:0 18px}
+
+/* ---------- top bar ---------- */
+.topbar{
+  position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:14px;
+  padding:calc(10px + env(safe-area-inset-top)) 18px 10px;
+  background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:700;color:var(--text);font-size:1.05rem;white-space:nowrap}
+.brand:hover{text-decoration:none}
+.brand .mark{width:30px;height:30px;border-radius:9px;background:var(--grad-brand);display:grid;place-items:center;color:#fff;font-size:15px;flex:none}
+.nav-desktop{display:none;gap:2px;margin-left:auto}
+.nav-desktop a{padding:7px 10px;border-radius:999px;color:var(--muted);font-weight:500;font-size:.9rem;white-space:nowrap}
+.nav-desktop a:hover{text-decoration:none;color:var(--text);background:var(--surface-2)}
+.nav-desktop a[aria-current="page"]{color:var(--text);background:var(--surface-2)}
+@media(min-width:1180px){.nav-desktop{display:flex}}
+.theme-btn{margin-left:auto;border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:999px;width:36px;height:36px;cursor:pointer;font-size:16px;flex:none}
+@media(min-width:1180px){.theme-btn{margin-left:6px}}
+
+/* ---------- bottom nav (mobile) ---------- */
+.bottomnav{
+  position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;
+  background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(14px);
+  border-top:1px solid var(--line);padding:6px 4px calc(6px + env(safe-area-inset-bottom));
+}
+.bottomnav a{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:.68rem;color:var(--muted);padding:4px 0;border-radius:10px}
+.bottomnav a:hover{text-decoration:none}
+.bottomnav a .ico{font-size:1.15rem;line-height:1}
+.bottomnav a[aria-current="page"]{color:var(--c-promising);font-weight:600}
+@media(min-width:1180px){.bottomnav{display:none}}
+
+/* ---------- hero ---------- */
+.hero{padding:34px 0 10px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:-40% -20% auto;height:130%;pointer-events:none;
+  background:radial-gradient(50% 60% at 20% 20%,color-mix(in srgb,var(--brand-1) 16%,transparent),transparent 70%),
+             radial-gradient(45% 55% at 85% 10%,color-mix(in srgb,var(--brand-2) 14%,transparent),transparent 70%);}
+.hero>*{position:relative}
+.hero .kicker{font-weight:600;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;background:var(--grad-brand);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.lead{font-size:1.05rem;color:var(--muted);max-width:46em}
+.hero-stats{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 8px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);padding:10px 16px;box-shadow:var(--shadow)}
+.stat b{display:block;font-family:var(--font-display);font-size:1.25rem}
+.stat span{font-size:.78rem;color:var(--muted)}
+
+/* ---------- sections ---------- */
+.section{padding:26px 0 6px}
+.section-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.section-head .more{margin-left:auto;font-size:.9rem;font-weight:600}
+.section-sub{color:var(--muted);margin:-8px 0 14px;max-width:52em}
+
+/* ---------- cards ---------- */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;box-shadow:var(--shadow)}
+.grid{display:grid;gap:14px}
+.grid-2{grid-template-columns:1fr}
+.grid-3{grid-template-columns:1fr}
+@media(min-width:640px){.grid-2{grid-template-columns:1fr 1fr}.grid-3{grid-template-columns:1fr 1fr}}
+@media(min-width:960px){.grid-3{grid-template-columns:1fr 1fr 1fr}}
+
+/* treatment card */
+.tcard{display:flex;flex-direction:column;gap:10px;position:relative;color:var(--text)}
+a.tcard:hover{text-decoration:none;border-color:color-mix(in srgb,var(--c-promising) 45%,var(--line));transform:translateY(-1px);transition:.15s}
+.tcard .rank{position:absolute;top:-11px;left:14px;background:var(--grad-brand);color:#fff;font-family:var(--font-display);font-weight:700;font-size:.8rem;border-radius:999px;padding:2px 11px;box-shadow:var(--shadow)}
+.tcard h3{margin:2px 0 0}
+.tcard .cat{font-size:.74rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.tcard .one{color:var(--muted);font-size:.92rem;margin:0}
+.tcard .foot{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:6px}
+
+/* ---------- badges ---------- */
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:.74rem;font-weight:600;border-radius:999px;padding:3px 9px;border:1px solid;white-space:nowrap}
+.b-strong{color:var(--c-strong);background:var(--c-strong-bg);border-color:var(--c-strong-line)}
+.b-promising{color:var(--c-promising);background:var(--c-promising-bg);border-color:var(--c-promising-line)}
+.b-emerging{color:var(--c-emerging);background:var(--c-emerging-bg);border-color:var(--c-emerging-line)}
+.b-watch{color:var(--c-watch);background:var(--c-watch-bg);border-color:var(--c-watch-line)}
+.b-weak{color:var(--c-weak);background:var(--c-weak-bg);border-color:var(--c-weak-line)}
+
+/* evidence meter (5 dots) */
+.emeter{display:inline-flex;align-items:center;gap:3px}
+.emeter i{width:9px;height:9px;border-radius:50%;background:var(--line)}
+.emeter i.on{background:var(--em-c,var(--c-promising))}
+.emeter .lab{font-size:.74rem;font-weight:600;color:var(--muted);margin-left:5px}
+
+/* loudness / distress duo */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.duo .cell{border-radius:var(--r-sm);padding:8px 10px;border:1px solid var(--line);background:var(--surface-2)}
+.duo .cell .k{font-size:.68rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.duo .cell .v{font-weight:600;font-size:.88rem}
+.lv-none{color:var(--c-weak)}.lv-limited{color:var(--c-watch)}.lv-moderate{color:var(--c-promising)}.lv-strong{color:var(--c-strong)}
+
+/* category cards */
+.catcard{display:flex;flex-direction:column;gap:6px;border-radius:var(--r);padding:16px;border:1px solid var(--line);color:var(--text);background:var(--surface);box-shadow:var(--shadow);position:relative;overflow:hidden}
+.catcard:hover{text-decoration:none;transform:translateY(-1px);transition:.15s}
+.catcard .ico{font-size:1.5rem}
+.catcard .count{font-size:.78rem;color:var(--muted)}
+.catcard::after{content:"";position:absolute;inset:auto -30px -34px auto;width:96px;height:96px;border-radius:50%;background:var(--cat-c,var(--c-promising));opacity:.10}
+
+/* ---------- chips / filters ---------- */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 16px}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:999px;padding:6px 13px;font-size:.85rem;font-weight:500;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--grad-brand);border-color:transparent;color:#fff;font-weight:600}
+.searchbar{display:flex;gap:8px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:9px 16px;box-shadow:var(--shadow)}
+.searchbar input{flex:1;border:0;background:none;color:var(--text);font:inherit;outline:none;min-width:0}
+
+/* ---------- snapshot (treatment page) ---------- */
+.snapshot{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+@media(min-width:720px){.snapshot{grid-template-columns:repeat(4,1fr)}}
+.snapshot .cell{background:var(--surface);padding:11px 13px}
+.snapshot .k{font-size:.68rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.snapshot .v{font-weight:600;font-size:.92rem;margin-top:2px}
+
+/* prose sections */
+.prose{max-width:760px}
+.prose h2{margin-top:1.6em}
+details.rdetail{border:1px solid var(--line);border-radius:var(--r-sm);background:var(--surface-2);padding:0 14px;margin:10px 0}
+details.rdetail summary{cursor:pointer;font-weight:600;padding:11px 0;color:var(--c-promising)}
+details.rdetail[open]{padding-bottom:10px}
+
+/* study table -> cards on mobile */
+.study{border:1px solid var(--line);border-radius:var(--r-sm);padding:13px 15px;margin:10px 0;background:var(--surface)}
+.study .t{font-weight:600}
+.study .meta{font-size:.82rem;color:var(--muted);margin:2px 0 6px}
+.study .res{font-size:.92rem}
+.study .flags{margin-top:6px;display:flex;flex-wrap:wrap;gap:6px}
+
+/* timeline */
+.timeline{list-style:none;margin:10px 0;padding:0;border-left:2px solid var(--line)}
+.timeline li{position:relative;padding:0 0 14px 18px}
+.timeline li::before{content:"";position:absolute;left:-6px;top:7px;width:10px;height:10px;border-radius:50%;background:var(--grad-brand)}
+.timeline b{font-family:var(--font-display)}
+
+/* ---------- compare ---------- */
+.cmp-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
+table.cmp{border-collapse:collapse;min-width:640px;width:100%}
+table.cmp th,table.cmp td{padding:10px 13px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left;font-size:.9rem}
+table.cmp th:first-child,table.cmp td:first-child{position:sticky;left:0;background:var(--surface);font-weight:600;min-width:130px;box-shadow:1px 0 0 var(--line)}
+table.cmp thead th{font-family:var(--font-display)}
+
+/* ---------- Phase 3: entry paths, plain-why, profile, search ---------- */
+.paths{display:grid;gap:12px;grid-template-columns:1fr;margin:18px 0 6px}
+@media(min-width:720px){.paths{grid-template-columns:1fr 1fr 1fr}}
+.path-card{display:flex;flex-direction:column;gap:6px;padding:16px 18px;border-radius:var(--r);
+  border:1px solid var(--line);background:var(--surface);color:var(--text);box-shadow:var(--shadow);
+  border-left:4px solid var(--p-c,var(--c-promising))}
+.path-card:hover{text-decoration:none;transform:translateY(-1px);transition:.15s}
+.path-card b{font-family:var(--font-display);font-size:1.05rem}
+.path-card .small{color:var(--muted)}
+.whyline{background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r-sm);
+  padding:8px 11px;margin:2px 0 0;font-size:.88rem}
+.whyline strong{color:var(--c-promising)}
+.who{margin:0;font-size:.8rem;color:var(--muted)}
+.lvl-chip{cursor:pointer}
+.imp{display:inline-flex;font-size:.72rem;font-weight:700;letter-spacing:.02em;border-radius:6px;padding:2px 8px;margin-right:6px}
+.plain-block{border:1px solid var(--line);border-left:4px solid var(--c-promising);background:var(--surface);
+  border-radius:var(--r-sm);padding:12px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.plain-block .k{font-size:.68rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.narrow-note{border:1px solid var(--c-watch-line);background:var(--c-watch-bg);border-radius:var(--r-sm);
+  padding:10px 14px;margin:10px 0;font-size:.9rem}
+.fmqs-box{border:1px dashed var(--c-promising-line);background:var(--c-promising-bg);border-radius:var(--r-sm);
+  padding:12px 15px;margin:14px 0}
+.fmqs-box .small{margin:6px 0 0}
+.pform fieldset{border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;margin:0 0 14px;background:var(--surface)}
+.pform legend{font-family:var(--font-display);font-weight:600;padding:0 8px}
+.pform label{display:flex;gap:8px;align-items:center;padding:5px 0;font-size:.93rem}
+.pform select,.pform input[type=text]{background:var(--surface-2);border:1px solid var(--line);color:var(--text);
+  border-radius:8px;padding:7px 10px;font:inherit;max-width:100%}
+.pform .row{display:flex;flex-wrap:wrap;gap:10px 22px}
+.redflag{border:1px solid var(--c-watch-line);background:var(--c-watch-bg);border-radius:var(--r);padding:14px 16px;margin:14px 0}
+.match-note{border:1px solid var(--c-promising-line);background:var(--c-promising-bg);border-radius:var(--r-sm);
+  padding:9px 12px;margin:8px 0;font-size:.85rem}
+.sr-row{display:flex;gap:10px;align-items:baseline;padding:10px 4px;border-bottom:1px solid var(--line)}
+.sr-row .type{flex:none;font-size:.68rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  border:1px solid var(--line);border-radius:6px;padding:2px 7px;color:var(--muted);min-width:78px;text-align:center}
+.followbtn{font-size:.8rem;padding:5px 12px}
+
+/* ---------- Phase 4: evidence visuals (no chart library — CSS marks) ---------- */
+.eprofile{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);
+  padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.eprofile .k{font-size:.68rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.eprow{display:grid;grid-template-columns:minmax(96px,132px) 1fr minmax(74px,auto);gap:10px;align-items:center;padding:5px 0}
+.eprow .lab{font-size:.83rem;color:var(--text)}
+.eprow .val{font-size:.8rem;font-weight:600;color:var(--muted);text-align:right;white-space:nowrap}
+.segbar{display:flex;gap:2px;height:10px;max-width:300px}
+.segbar i{flex:1;border-radius:3px;background:var(--surface-2);border:1px solid var(--line)}
+.segbar i.on{background:var(--seg-c,var(--c-promising));border-color:transparent}
+.segbar.na i{background:repeating-linear-gradient(45deg,var(--surface-2),var(--surface-2) 3px,var(--line) 3px,var(--line) 5px)}
+/* Conflicting replication: its own state (amber stripes), never a level on the positive scale */
+.segbar.conflict i.cf{background:repeating-linear-gradient(135deg,var(--c-watch),var(--c-watch) 3px,var(--surface-2) 3px,var(--surface-2) 6px);border-color:var(--c-watch);opacity:.85}
+.eprofile details{margin-top:8px}
+.eprofile summary{cursor:pointer;font-size:.82rem;color:var(--c-promising);font-weight:600}
+
+/* homepage distribution + generic count bars */
+.dchart{display:grid;gap:8px;margin:10px 0}
+.drow{display:grid;grid-template-columns:minmax(120px,190px) 1fr auto;gap:10px;align-items:center}
+.drow .lab{font-size:.86rem}
+.drow .n{font-size:.86rem;font-weight:700;font-variant-numeric:tabular-nums;min-width:2ch;text-align:right}
+.dbar{height:14px;border-radius:4px;background:var(--surface-2);overflow:hidden}
+.dbar i{display:block;height:100%;border-radius:4px;background:var(--d-c,var(--c-promising));min-width:3px}
+a.drow{color:var(--text)} a.drow:hover{text-decoration:none;background:var(--surface-2);border-radius:8px}
+
+/* timeline event types (presentation-only classification) */
+.timeline li::before{background:var(--tl-c,var(--grad-brand))}
+.tl-regulatory{--tl-c:var(--c-strong)} .tl-negative{--tl-c:var(--c-weak)}
+.tl-study{--tl-c:var(--c-promising)} .tl-commercial{--tl-c:var(--c-emerging)} .tl-assessment{--tl-c:var(--c-watch)}
+.tl-key{display:flex;flex-wrap:wrap;gap:10px;font-size:.74rem;color:var(--muted);margin:4px 0 8px}
+.tl-key i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px;vertical-align:middle}
+
+/* ranking history strip */
+.rankhist{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0}
+.rankhist .step{background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:4px 10px;font-size:.83rem;font-variant-numeric:tabular-nums}
+.rankhist .arrow{color:var(--muted)}
+
+/* ---------- misc ---------- */
+.notice{border:1px solid var(--c-watch-line);background:var(--c-watch-bg);color:var(--text);border-radius:var(--r-sm);padding:11px 14px;font-size:.88rem}
+.footer{margin-top:40px;border-top:1px solid var(--line);padding:24px 0 30px;color:var(--muted);font-size:.85rem}
+.btn{display:inline-flex;align-items:center;gap:7px;border-radius:999px;padding:9px 18px;font-weight:600;font-size:.92rem;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--text)}
+.btn:hover{text-decoration:none}
+.btn-primary{background:var(--grad-brand);color:#fff;border-color:transparent}
+.btn-ghost{background:none;border-color:transparent;color:var(--c-promising)}
+.watch-btn[aria-pressed="true"]{background:var(--c-promising-bg);border-color:var(--c-promising-line);color:var(--c-promising)}
+.empty{padding:34px 10px;text-align:center;color:var(--muted)}
+.updated-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--c-strong);margin-right:6px}
+.tag{font-size:.72rem;border-radius:6px;padding:2px 7px;background:var(--surface-2);border:1px solid var(--line);color:var(--muted)}
+.week-item{border-left:3px solid var(--w-c,var(--c-promising));padding:2px 0 2px 12px;margin:12px 0}
+.week-item .t{font-weight:600}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+
+/* crawlable breadcrumbs + static footer links (footer-links is folded into the JS footer when app.js runs) */
+.crumbs{color:var(--muted)}
+.crumbs a{color:var(--c-promising);text-decoration:none}
+.footer-links{border-top:1px solid var(--line);margin-top:40px;padding:18px 0 90px;color:var(--muted)}
+.footer-links a{color:var(--c-promising);text-decoration:none}
+
+/* Research Questions: hypothesis banner — deliberately distinct from evidence badges/tiers */
+.hypo-banner{display:flex;align-items:center;gap:12px;border:2px dashed var(--c-watch);background:var(--c-watch-bg);color:var(--text);border-radius:var(--r-sm);padding:12px 16px;margin:14px 0;font-size:.95rem}
+.hypo-banner .tag{background:var(--c-watch);color:#1a1204;font-family:var(--font-display);font-weight:700;font-size:.78rem;letter-spacing:.1em;padding:3px 10px;border-radius:6px;flex:none}
+
+/* Desktop nav breakpoint raised 900->1180px: the full 11-link row (incl. "Research Questions")
+   fits without wrapping only above ~1150px; below that the existing bottom-nav pattern serves
+   navigation (this also fixes a pre-existing top-nav overflow at 900-1100px widths). */
+
+/* Ask: loading indicator (CSS-only animation; stops with the element — no JS loops) */
+.ask-loading{display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.ask-spin{width:22px;height:22px;flex:none;border-radius:50%;border:3px solid var(--surface-2);border-top-color:var(--c-promising);animation:askspin .9s linear infinite}
+@keyframes askspin{to{transform:rotate(360deg)}}
+.ask-loading .bar{position:relative;height:4px;border-radius:99px;background:var(--surface-2);overflow:hidden;margin-top:8px}
+.ask-loading .bar i{position:absolute;inset:0;width:35%;border-radius:99px;background:var(--grad-brand);animation:askbar 1.6s ease-in-out infinite}
+@keyframes askbar{0%{left:-35%}100%{left:100%}}
+@media (prefers-reduced-motion: reduce){.ask-spin,.ask-loading .bar i{animation:none}.ask-loading .bar i{width:100%;left:0;opacity:.5}}
+
+/* ---------- Phase 5: hierarchy & density pass (same tokens, same identity) ----------
+   Goal: fewer competing elements per screen, nothing removed — secondary detail moves
+   behind native <details> expanders (no JS, keyboard-accessible, crawlable). */
+:focus-visible{outline:2px solid var(--c-promising);outline-offset:2px}
+.hero{padding:28px 0 8px}
+.hero p.lead{font-size:1rem;max-width:44em;margin:.3em 0 .6em}
+.hero h1{max-width:18em;text-wrap:balance}
+.section{padding:22px 0 4px}
+.section-sub{margin:-6px 0 12px;font-size:.95rem}
+h3{text-wrap:balance}
+
+/* slimmer entry cards */
+.paths{margin:14px 0 4px;gap:10px}
+.path-card{padding:11px 14px;gap:2px;border-left-width:3px}
+.path-card b{font-size:.95rem}
+.path-card .small{font-size:.8rem;line-height:1.45}
+
+/* one horizontal stats strip — values are still injected from data/ (build_seo sync + app.js) */
+.stats-strip{display:flex;flex-wrap:wrap;margin:14px 0 10px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--surface);box-shadow:var(--shadow);overflow:hidden}
+.stats-strip .stat{flex:1 1 0;min-width:120px;border:0;border-radius:0;box-shadow:none;background:none;padding:8px 14px;border-left:1px solid var(--line)}
+.stats-strip .stat:first-child{border-left:0}
+.stats-strip .stat b{font-size:1.1rem;line-height:1.2;font-variant-numeric:tabular-nums}
+.stats-strip .stat span{font-size:.72rem;white-space:nowrap}
+@media(max-width:639px){
+  .stats-strip .stat{flex:1 1 45%;border-top:1px solid var(--line)}
+  .stats-strip .stat:nth-child(-n+2){border-top:0}
+  .stats-strip .stat:nth-child(odd){border-left:0}
+}
+
+/* loudness vs distress — the same two-cell "duo" everywhere (hero key, cards, treatment pages) */
+.ld-key{margin:4px 0 2px}
+.ld-key a.cell{color:var(--text);display:block}
+.ld-key a.cell:hover{text-decoration:none;border-color:color-mix(in srgb,var(--c-promising) 45%,var(--line))}
+.ld-key .v{font-size:.86rem}
+.ld-key .small{display:block;color:var(--muted);margin-top:2px}
+.ld-note{font-size:.82rem;color:var(--muted);margin:6px 0 0}
+@media(max-width:400px){.ld-key.duo{grid-template-columns:1fr}}
+
+/* scannable ranked cards: rank · name · category · loudness · distress · one summary · See evidence */
+.rcard{gap:8px;padding:18px 16px 0}
+.rcard .cat{margin-top:2px}
+.rcard h3{font-size:1.04rem;margin:0}
+.rcard h3 a:hover{text-decoration:underline}
+.rcard .one{font-size:.9rem}
+.rcard .see{font-weight:600;font-size:.88rem;margin:2px 0 0}
+details.rmore{border-top:1px solid var(--line);margin:auto -16px 0;padding:0 16px}
+.rcard .see{margin-bottom:8px}
+details.rmore summary{cursor:pointer;font-size:.76rem;font-weight:500;color:var(--muted);opacity:.85;padding:8px 0;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:7px}
+details.rmore summary::-webkit-details-marker{display:none}
+details.rmore summary::after{content:"+";font-family:var(--font-display);font-weight:700;color:var(--c-promising)}
+details.rmore[open] summary::after{content:"–"}
+details.rmore summary:hover{color:var(--text);opacity:1}
+details.rmore[open]{padding-bottom:12px}
+details.rmore .foot{margin:0 0 8px;padding-top:0}
+details.rmore .whyline{margin:0 0 8px}
+details.rmore .rdetail{margin:0}
+
+/* section methodology expanders (Top 10 "How solid is this order?", page leads) */
+details.method{border:1px solid var(--line);border-radius:var(--r-sm);background:var(--surface-2);padding:0 14px;margin:0 0 14px;font-size:.88rem}
+details.method summary{cursor:pointer;font-weight:600;color:var(--c-promising);padding:9px 0}
+details.method[open]{padding-bottom:10px}
+details.method p{margin:.4em 0}
+details.method p:last-child{margin-bottom:0}
+
+/* slim "Ask" row */
+.ask-row{display:flex;align-items:center;gap:12px 18px;flex-wrap:wrap;padding:14px 18px}
+.ask-row h2{font-size:1.05rem;margin:0 0 2px}
+.ask-row .txt{flex:1 1 300px;min-width:0}
+.ask-row p{margin:0}
+.ask-row .btn{flex:none}
+
+/* treatment page: on-this-page chips + collapsible secondary sections */
+.toc{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 2px}
+.toc a{font-size:.78rem;font-weight:500;border:1px solid var(--line);border-radius:999px;padding:4px 11px;color:var(--muted);background:var(--surface);white-space:nowrap}
+.toc a:hover{text-decoration:none;color:var(--text);border-color:color-mix(in srgb,var(--c-promising) 45%,var(--line))}
+.tpage-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:12px 0 4px}
+.tpage-actions .btn{padding:7px 14px;font-size:.86rem}
+details.sec{border-top:1px solid var(--line);margin-top:1.3em}
+details.sec>summary{cursor:pointer;font-family:var(--font-display);font-weight:700;font-size:clamp(1.1rem,3.2vw,1.35rem);line-height:1.3;padding:14px 0;list-style:none;display:flex;align-items:center;gap:10px;letter-spacing:-.01em}
+details.sec>summary::-webkit-details-marker{display:none}
+details.sec>summary::after{content:"+";margin-left:auto;color:var(--c-promising);font-weight:700;flex:none}
+details.sec[open]>summary::after{content:"–"}
+details.sec>summary .small{font-family:var(--font-body);font-weight:500;color:var(--muted)}
+details.sec[open]{padding-bottom:6px}
+details.sec .prose>h2:first-child,details.sec>h2:first-of-type{margin-top:.4em}
+.prose details.sec h2{font-size:1.05rem;margin-top:1.2em}
+.prose details.sec h3{font-size:1rem}
+
+/* study cards: lighter meta line, details already collapsed */
+.study .meta{font-size:.8rem}
+
+/* generic page chrome: crumbs tighter, lead a touch smaller on inner pages */
+.crumbs{font-size:.8rem}
+main.prose>h1{margin-bottom:.35em}
+main.prose p.lead{font-size:1.02rem;color:var(--muted)}
+
+/* grid children must be allowed to shrink (long status badges/titles otherwise force horizontal overflow) */
+.grid>*{min-width:0}
+.badge{white-space:normal;text-align:left}
+.cmp-scroll,.dchart{max-width:100%}
+
+/* ---------- Refinement pass 2: hierarchy between cards, chapters between sections ----------
+   #1–#3 keep the full card treatment (category-tinted top edge); #4–#10 drop the box and read as
+   a ruled list. Same content, same size. Treatment cards: name → summary → loudness/distress →
+   evidence strength → availability; population/tier/outcome metadata one tap down. */
+.tcard .rhead{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tcard h3 a{color:inherit}
+.tcard h3 a::after{content:"";position:absolute;inset:0;border-radius:inherit}
+.tcard .see,.tcard details.rmore,.tcard .duo a,.tcard .foot a{position:relative;z-index:1}
+.card.tcard:hover{border-color:color-mix(in srgb,var(--c-promising) 45%,var(--line))}
+.tcard .foot+details.rmore{margin-top:0}
+.tcard details.rmore .who{margin:6px 0 0}
+
+.rcard-top{border-top:3px solid var(--cat-c,var(--c-promising));border-radius:12px var(--r) var(--r) 12px;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--cat-c,var(--c-promising)) 9%,var(--surface)),var(--surface) 58%)}
+.rcard-top h3{font-size:1.15rem}
+.rcard-top .one{color:var(--text);opacity:.85}
+.rcard-rest{background:none;border:0;box-shadow:none;border-radius:0;border-top:1px solid var(--line);padding:16px 4px 0}
+.rcard-rest:hover{border-color:var(--line)}
+.rcard-rest .rank{position:static;background:var(--surface-2);color:var(--text);box-shadow:none;border:1px solid var(--line);font-size:.72rem;padding:1px 8px}
+.rcard-rest h3{font-size:1rem}
+.rcard-rest .duo .cell{background:transparent}
+.rcard-rest details.rmore{margin:auto -4px 0;padding:0 4px;border-top:0}
+.rcard-rest details.rmore[open]{padding-bottom:6px}
+@media(min-width:960px){.rcard-top{padding-bottom:0}}
+
+/* homepage chapters: a hairline + short brand rule above each chapter heading (no extra boxes) */
+body[data-page="index"] .section{padding:34px 0 10px;border-top:1px solid var(--line);margin-top:18px}
+body[data-page="index"] .hero+.section{margin-top:8px}
+body[data-page="index"] .section-head h2::before{content:"";display:block;width:34px;height:3px;border-radius:2px;background:var(--grad-brand);margin-bottom:10px}
+body[data-page="index"] .section-head{margin-bottom:12px}
+body[data-page="index"] .section-sub{margin-top:-4px}
+body[data-page="index"] #top10{margin-top:6px}
+
+/* ---------- Refinement pass 3 (final visual tweaks; CSS only) ----------
+   Entry tiles ~20–25% taller (vertical padding + spacing, equal heights via the grid),
+   stats strip ~10–15% taller but still secondary, #4–#10 take their natural height,
+   "How solid is this order?" reads as a quiet inline control until opened. */
+.paths{gap:12px;margin:18px 0 6px}
+.path-card{padding:17px 18px 18px;gap:6px;border-left-width:4px}
+.path-card b{font-size:1.06rem;line-height:1.3}
+.path-card .small{font-size:.86rem;line-height:1.5}
+@media(max-width:719px){.path-card{padding:15px 16px 16px;gap:4px}}
+
+.stats-strip{margin:16px 0 12px}
+.stats-strip .stat{padding:11px 16px}
+.stats-strip .stat b{font-size:1.2rem}
+.stats-strip .stat span{font-size:.74rem}
+
+.rcard-rest{align-self:start}
+.rcard-rest .see{margin-bottom:2px}
+.rcard-rest details.rmore{margin:4px -4px 0}
+
+#top10-method{background:none;border:0;padding:0;margin:0 0 12px}
+#top10-method summary{font-size:.84rem;font-weight:500;color:var(--muted);padding:2px 0;display:inline-block}
+#top10-method summary:hover{color:var(--text)}
+#top10-method[open]{border:1px solid var(--line);background:var(--surface-2);padding:0 14px 10px;border-radius:var(--r-sm)}
+#top10-method[open] summary{display:block;color:var(--c-promising);font-weight:600;padding:9px 0}
+
+/* ---------- Refinement pass 4: #4–#10 ruled entries ~15–20% more substantial (CSS only) ----------
+   Still borderless and boxless; larger title/body/cells/rank chip, more room per entry.
+   #1–#3 (.rcard-top) and everything outside the ranked list are unchanged. */
+.rcard-rest{padding:20px 4px 4px;gap:10px}
+.rcard-rest .rank{font-size:.8rem;padding:2px 10px;font-weight:700;color:var(--text);border-color:color-mix(in srgb,var(--c-promising) 35%,var(--line))}
+.rcard-rest h3{font-size:1.1rem;font-weight:700;line-height:1.3}
+.rcard-rest .one{font-size:.95rem;line-height:1.55}
+.rcard-rest .duo .cell{padding:9px 11px}
+.rcard-rest .duo .cell .v{font-size:.9rem}
+.rcard-rest .duo .cell .k{font-size:.7rem}
+.rcard-rest .see{font-size:.92rem;margin:2px 0 4px}
+.rcard-rest details.rmore{margin:2px -4px 0}
+.rcard-rest details.rmore summary{font-size:.76rem}
+@media(max-width:639px){.rcard-rest{padding-top:18px}}
+
+/* ---------- Refinement pass 5: #4–#10 hover shows the full frame (same highlight as full cards) ----------
+   Idle look unchanged (hairline only). On hover the whole perimeter lights up with the card
+   highlight color, drawn as an outline just outside the entry so nothing inside moves. */
+.rcard-rest{outline:1px solid transparent;outline-offset:6px;border-radius:var(--r);transition:outline-color .15s,border-color .15s,transform .15s,background-color .15s}
+.rcard-rest:hover{outline-color:color-mix(in srgb,var(--c-promising) 45%,var(--line));border-top-color:transparent;transform:translateY(-1px);background:color-mix(in srgb,var(--surface) 45%,transparent)}
+@media(hover:none){.rcard-rest:hover{outline-color:transparent;border-top-color:var(--line);transform:none;background:none}}
+
+/* ---------- Refinement pass 6: one full-frame hover for every clickable card/tile, site-wide ----------
+   Idle appearance untouched. On hover (pointer devices only) the complete perimeter takes the
+   card's own color — category color for treatment/category/entry cards, path color for the hero
+   tiles, brand blue elsewhere — with a faint outer glow and the same .15s transition. */
+.card,.path-card,.catcard{--hov-c:color-mix(in srgb,var(--c-promising) 45%,var(--line));transition:border-color .15s,box-shadow .15s,transform .15s,background-color .15s}
+.tcard,.catcard{--hov-c:color-mix(in srgb,var(--cat-c,var(--c-promising)) 60%,var(--line))}
+.path-card{--hov-c:color-mix(in srgb,var(--p-c,var(--c-promising)) 60%,var(--line))}
+@media(hover:hover){
+  .card:has(a[href]):hover,.path-card:hover,.catcard:hover,.card.tcard:hover{
+    border-color:var(--hov-c);
+    box-shadow:var(--shadow),0 0 0 3px color-mix(in srgb,var(--hov-c) 22%,transparent)}
+  .rcard-top:hover{border-top-color:var(--hov-c)}
+}
+/* #4–#10 (boxless): the frame is a pseudo-element drawn 7px outside the entry, replacing the earlier outline */
+.rcard-rest{outline:0;position:relative;transform:none}
+.rcard-rest::after{content:"";position:absolute;inset:-7px;border-radius:var(--r);border:1px solid transparent;pointer-events:none;transition:border-color .15s,box-shadow .15s}
+.rcard-rest:hover{outline:0;transform:none;background:none;border-top-color:var(--line)}
+@media(hover:hover){
+  .rcard-rest:hover{border-top-color:transparent;background:color-mix(in srgb,var(--surface) 45%,transparent)}
+  .rcard-rest:hover::after{border-color:var(--hov-c);box-shadow:0 0 0 3px color-mix(in srgb,var(--hov-c) 22%,transparent)}
+}
+
+/* ---------- Refinement pass 7: browsing treatment cards (Treatments, Best options, Profile, Watchlist) ----------
+   A restrained category wash along the top of every treatment card (far lighter than the homepage
+   Top 3), a slightly more prominent name, and the same category-colored full-frame hover. */
+.card.tcard:not(.rcard){
+  background:linear-gradient(180deg,color-mix(in srgb,var(--cat-c,var(--c-promising)) 7%,var(--surface)),var(--surface) 42%);
+  border-top-color:color-mix(in srgb,var(--cat-c,var(--c-promising)) 38%,var(--line))}
+.card.tcard:not(.rcard) h3{font-size:1.12rem;font-weight:700;line-height:1.3}
+@media(hover:hover){.card.tcard:not(.rcard):hover{border-color:var(--hov-c)}}
+
+/* ---------- Refinement pass 8: treatment cards — wash a step more visible, a little more internal room ----------
+   Wash goes from 7% to 13% of the category color (Top 3 cards use 9% over a 3px colored edge
+   plus a stronger fade, so they still read stronger); the tinted top edge follows. Title →
+   description → loudness/distress get a few extra pixels each. Sizes, colors, fonts unchanged. */
+.card.tcard:not(.rcard){
+  background:linear-gradient(180deg,color-mix(in srgb,var(--cat-c,var(--c-promising)) 13%,var(--surface)),var(--surface) 48%);
+  border-top-color:color-mix(in srgb,var(--cat-c,var(--c-promising)) 48%,var(--line))}
+.card.tcard:not(.rcard) h3{margin-top:4px}
+.card.tcard:not(.rcard) .one{margin:2px 0 4px}
+.card.tcard:not(.rcard) .duo{margin-top:2px}
+
+/* ---------- Refinement pass 9: treatment-card wash a little more visible ----------
+   20% category color at the top edge, fading into the card background by ~20% of the card
+   height. Border tint and everything else unchanged. */
+.card.tcard:not(.rcard){
+  background:linear-gradient(180deg,color-mix(in srgb,var(--cat-c,var(--c-promising)) 20%,var(--surface)) 0,color-mix(in srgb,var(--cat-c,var(--c-promising)) 8%,var(--surface)) 10%,var(--surface) 20%)}
+
+/* ---------- Refinement pass 10: Clinical Trials cards — hierarchy in line with Treatments ----------
+   Status stays the prominent badge; phase / country / "One to watch" become quieter secondary
+   badges. Title is the primary element. A restrained wash keyed to the card's existing status
+   color (same strength as the treatment-card wash), and a little more internal room. */
+.trial-card{--st-c:var(--c-promising);--hov-c:color-mix(in srgb,var(--st-c) 60%,var(--line));
+  background:linear-gradient(180deg,color-mix(in srgb,var(--st-c) 20%,var(--surface)) 0,color-mix(in srgb,var(--st-c) 8%,var(--surface)) 10%,var(--surface) 20%);
+  border-top-color:color-mix(in srgb,var(--st-c) 48%,var(--line))}
+.trial-card.st-strong{--st-c:var(--c-strong)}
+.trial-card.st-promising{--st-c:var(--c-promising)}
+.trial-card.st-weak{--st-c:var(--c-weak)}
+.trial-card.st-watch{--st-c:var(--c-watch)}
+.trial-card .tbadges{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0 0 12px;padding:0}
+.trial-card .tbadges .badge.sec{font-size:.68rem;font-weight:500;padding:2px 7px;opacity:.85}
+.trial-card h3{font-size:1.12rem;font-weight:700;line-height:1.3;margin:0 0 8px}
+.trial-card .meta{margin:0 0 10px}
+.trial-card .why{margin:0 0 12px}
+.trial-card .match-note{margin:0 0 12px}
+.trial-card .acts{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin:0}
+.trial-card .acts .followbtn{margin-left:auto}
+#near-note{font-size:.8rem;opacity:.72;max-width:60em}
+
+/* ---------- Refinement pass 11: recruiting (green) trial cards — wash ~12% softer, same area and fade ---------- */
+.trial-card.st-strong{
+  background:linear-gradient(180deg,color-mix(in srgb,var(--st-c) 17%,var(--surface)) 0,color-mix(in srgb,var(--st-c) 7%,var(--surface)) 10%,var(--surface) 20%)}
+
+/* ---------- Refinement pass 12: Research page — weekly updates as restrained cards ----------
+   Scoped to the research page list (#rep) so the homepage "What's new" digest and treatment
+   pages keep their compact left-line rows. Wash + frame + hover follow the item's existing
+   importance classification color (same strength as treatment/trial cards). */
+#rep .week-item{--imp-c:var(--c-promising);--hov-c:color-mix(in srgb,var(--imp-c) 60%,var(--line));
+  border:1px solid var(--line);border-top-color:color-mix(in srgb,var(--imp-c) 48%,var(--line));border-radius:var(--r);
+  padding:18px 20px 14px;margin:14px 0;box-shadow:var(--shadow);
+  background:linear-gradient(180deg,color-mix(in srgb,var(--imp-c) 17%,var(--surface)) 0,color-mix(in srgb,var(--imp-c) 7%,var(--surface)) 10%,var(--surface) 20%);
+  transition:border-color .15s,box-shadow .15s}
+#rep .week-item.imp-strong{--imp-c:var(--c-strong)}
+#rep .week-item.imp-promising{--imp-c:var(--c-promising)}
+#rep .week-item.imp-emerging{--imp-c:var(--c-emerging)}
+#rep .week-item.imp-watch{--imp-c:var(--c-watch)}
+#rep .week-item.imp-weak{--imp-c:var(--c-weak)}
+@media(hover:hover){#rep .week-item:hover{border-color:var(--hov-c);box-shadow:var(--shadow),0 0 0 3px color-mix(in srgb,var(--hov-c) 22%,transparent)}}
+#rep .week-item .badge{margin:0 4px 10px 0}
+#rep .week-item .t{font-family:var(--font-display);font-size:1.12rem;font-weight:700;line-height:1.3;margin:2px 0 8px;letter-spacing:-.01em}
+#rep .week-item>.small{font-size:.92rem;line-height:1.55;margin:0 0 10px}
+#rep .week-item details.rdetail{margin:12px 0 0;background:transparent}
+#rep .week-item details.rdetail summary{font-size:.82rem;font-weight:500;color:var(--muted);padding:9px 0}
+#rep .week-item details.rdetail summary:hover{color:var(--text)}
+#rep .week-item details.rdetail[open] summary{color:var(--c-promising)}
+@media(max-width:639px){#rep .week-item{padding:16px 16px 12px}}
+
+/* ---------- Refinement pass 13: Watchlist + Search brought onto the same design language ----------
+   Shared "wash panel" recipe (same strength as treatment/trial/research cards), used for the
+   watchlist empty state, the search panel and search-result rows. */
+.empty-state,.search-panel,.sr-row{--wash-c:var(--c-promising);--hov-c:color-mix(in srgb,var(--wash-c) 60%,var(--line));
+  border:1px solid var(--line);border-top-color:color-mix(in srgb,var(--wash-c) 48%,var(--line));border-radius:var(--r);box-shadow:var(--shadow);
+  background:linear-gradient(180deg,color-mix(in srgb,var(--wash-c) 17%,var(--surface)) 0,color-mix(in srgb,var(--wash-c) 7%,var(--surface)) 10%,var(--surface) 22%);
+  transition:border-color .15s,box-shadow .15s}
+
+/* watchlist empty state: one intentional panel, left-aligned, tight */
+#wl .empty-state{grid-column:1/-1;max-width:640px;text-align:left;padding:22px 24px 20px;color:var(--text)}
+.empty-state .es-title{display:block;font-family:var(--font-display);font-size:1.25rem;font-weight:700;letter-spacing:-.01em;margin:0 0 6px}
+.empty-state p{margin:0 0 12px;color:var(--muted)}
+.empty-state .es-actions{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
+/* watchlist entries: site cards + the watchlist-only extras */
+.wl-extra{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line);position:relative;z-index:1}
+.wl-extra .week-item{flex:1 1 100%;margin:4px 0}
+.wl-extra .btn.small{margin-left:auto;font-size:.8rem;padding:5px 12px}
+.wl-inst{--wash-c:var(--c-promising);border-top-color:color-mix(in srgb,var(--wash-c) 48%,var(--line));
+  background:linear-gradient(180deg,color-mix(in srgb,var(--wash-c) 17%,var(--surface)) 0,color-mix(in srgb,var(--wash-c) 7%,var(--surface)) 10%,var(--surface) 22%)}
+.wl-inst h3{font-size:1.12rem;font-weight:700}
+@media(hover:hover){.wl-inst:hover{border-color:var(--hov-c);box-shadow:var(--shadow),0 0 0 3px color-mix(in srgb,var(--hov-c) 22%,transparent)}}
+
+/* search: the search area carries the presence; the empty hint stays a quiet line, not a box */
+.search-panel{margin-top:14px;padding:18px 20px}
+.search-panel .searchbar{box-shadow:none;background:var(--surface-2);padding:12px 18px;font-size:1.02rem;transition:border-color .15s}
+.search-panel .searchbar:focus-within{border-color:color-mix(in srgb,var(--c-promising) 60%,var(--line))}
+#gresults .empty{text-align:left;padding:14px 4px;font-size:.92rem}
+/* search results: type-colored rows with the same frame/hover as every other tile */
+.sr-row{align-items:flex-start;gap:12px;padding:12px 14px;margin:0 0 10px;border-radius:var(--r-sm)}
+.sr-row .type{color:var(--wash-c);border-color:color-mix(in srgb,var(--wash-c) 40%,var(--line));background:color-mix(in srgb,var(--wash-c) 10%,var(--surface));margin-top:2px}
+.sr-row>span:last-child a{font-weight:600;font-size:1rem}
+.sr-treatment{--wash-c:var(--c-promising)}
+.sr-study{--wash-c:var(--c-emerging)}
+.sr-trial{--wash-c:var(--c-strong)}
+.sr-institution{--wash-c:var(--c-watch)}
+.sr-category{--wash-c:var(--brand-1)}
+.sr-update{--wash-c:var(--c-weak)}
+@media(hover:hover){.sr-row:hover{border-color:var(--hov-c);box-shadow:var(--shadow),0 0 0 3px color-mix(in srgb,var(--hov-c) 22%,transparent)}}
+@media(max-width:639px){#wl .empty-state{padding:18px 16px 16px}.search-panel{padding:14px 14px}.sr-row{padding:11px 12px}}
+
+/* ---------- Refinement pass 15: Ask Tinnitus Evidence — the question panel as the centerpiece ----------
+   Same wash recipe as the rest of the site (brand cyan here), a taller input, a primary Ask
+   button, and the six example questions as a 2-column grid of clickable tiles on desktop. */
+.ask-panel{--wash-c:var(--brand-1);margin:16px 0 18px;padding:22px 24px 18px;
+  border-top-color:color-mix(in srgb,var(--wash-c) 48%,var(--line));
+  background:linear-gradient(180deg,color-mix(in srgb,var(--wash-c) 17%,var(--surface)) 0,color-mix(in srgb,var(--wash-c) 7%,var(--surface)) 10%,var(--surface) 22%)}
+.ask-label{display:block;font-family:var(--font-display);font-weight:700;font-size:1.05rem;margin:0 0 10px}
+.ask-row-in{display:flex;gap:10px;flex-wrap:wrap}
+.ask-input{flex:1;min-width:240px;padding:15px 16px;border-radius:12px;border:1px solid var(--line);background:var(--surface-2);color:var(--text);font:inherit;font-size:1.05rem;transition:border-color .15s,box-shadow .15s}
+.ask-input:focus{outline:none;border-color:color-mix(in srgb,var(--c-promising) 60%,var(--line));box-shadow:0 0 0 3px color-mix(in srgb,var(--c-promising) 22%,transparent)}
+.ask-submit{padding:14px 28px;font-size:1rem;border-radius:12px}
+.ask-panel .ask-submit:disabled{opacity:.6;cursor:default}
+#ask-examples{margin:22px 0 0}
+#ask-examples h2{font-size:1.15rem;margin:0 0 12px}
+.ask-ex-grid{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:720px){.ask-ex-grid{grid-template-columns:1fr 1fr}}
+.ask-ex-grid li{display:flex}
+.ask-ex-grid .ask-ex{--hov-c:color-mix(in srgb,var(--c-promising) 60%,var(--line));width:100%;justify-content:flex-start;text-align:left;
+  border-radius:var(--r-sm);padding:12px 16px;white-space:normal;line-height:1.4;font-weight:500;font-size:.92rem;
+  transition:border-color .15s,box-shadow .15s}
+@media(hover:hover){.ask-ex-grid .ask-ex:hover{border-color:var(--hov-c);box-shadow:var(--shadow),0 0 0 3px color-mix(in srgb,var(--hov-c) 22%,transparent)}}
+/* the page's own bottom spacing: the static footer-links block (folded away when app.js runs)
+   carries a large bottom pad for the mobile bottom-nav; the JS footer already has its own */
+body[data-page=""] main.prose+.footer-links{padding-bottom:24px}
+@media(max-width:639px){.ask-panel{padding:16px 16px 14px}.ask-submit{width:100%;justify-content:center}}
+
+/* ---------- Refinement pass 16: Ask example tiles — the site's top wash (blue), a step brighter on hover ---------- */
+.ask-ex-grid .ask-ex{--wash-c:var(--c-promising);border-top-color:color-mix(in srgb,var(--wash-c) 48%,var(--line));
+  background:linear-gradient(180deg,color-mix(in srgb,var(--wash-c) 17%,var(--surface)) 0,color-mix(in srgb,var(--wash-c) 7%,var(--surface)) 12%,var(--surface) 26%);
+  transition:border-color .15s,box-shadow .15s,background .15s}
+@media(hover:hover){.ask-ex-grid .ask-ex:hover{
+  background:linear-gradient(180deg,color-mix(in srgb,var(--wash-c) 24%,var(--surface)) 0,color-mix(in srgb,var(--wash-c) 10%,var(--surface)) 12%,var(--surface) 26%)}}
+
+/* ---------- Refinement pass 17: My Tinnitus Profile — section cards on the site's card language ----------
+   Each fieldset gets the restrained top wash (decorative brand/blue/purple/indigo rotation — never the
+   evidence or safety colors), the legend becomes a real section heading with a hairline under it,
+   fields align as consistent label-over-select tiles, and the actions row gets its own strip. */
+.pform fieldset{--wash-c:var(--brand-1);position:relative;padding:18px 20px 16px;margin:0 0 16px;border-radius:var(--r);
+  border-top-color:color-mix(in srgb,var(--wash-c) 48%,var(--line));box-shadow:var(--shadow);
+  background:linear-gradient(180deg,color-mix(in srgb,var(--wash-c) 17%,var(--surface)) 0,color-mix(in srgb,var(--wash-c) 7%,var(--surface)) 10%,var(--surface) 22%);
+  transition:border-color .15s,box-shadow .15s}
+.pform fieldset:nth-of-type(2){--wash-c:var(--c-promising)}
+.pform fieldset:nth-of-type(3){--wash-c:var(--c-emerging)}
+.pform fieldset:nth-of-type(4){--wash-c:var(--brand-2)}
+.pform fieldset:nth-of-type(5){--wash-c:var(--brand-1)}
+.pform fieldset:nth-of-type(6){--wash-c:var(--c-promising)}
+.pform fieldset:focus-within{border-color:color-mix(in srgb,var(--wash-c) 60%,var(--line));box-shadow:var(--shadow),0 0 0 3px color-mix(in srgb,var(--wash-c) 22%,transparent)}
+.pform legend{float:left;width:100%;margin:0 0 14px;padding:0 0 10px;border-bottom:1px solid var(--line);font-size:1.08rem;font-weight:700;letter-spacing:-.01em}
+.pform .row{clear:both;display:flex;flex-wrap:wrap;gap:12px 16px}
+.pform label{flex:1 1 230px;flex-direction:column;align-items:stretch;gap:6px;padding:0;font-size:.9rem;color:var(--muted)}
+.pform label select{width:100%;padding:9px 11px;color:var(--text);transition:border-color .15s}
+.pform label select:focus{outline:none;border-color:color-mix(in srgb,var(--c-promising) 60%,var(--line))}
+.pform .row label:has(select:not([value=""]):not(:has(option[value=""]:checked))){color:var(--text)}
+.pform-actions{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:22px 0 0;padding:16px 0 0;border-top:1px solid var(--line)}
+.pform-actions .btn-primary{padding:11px 22px;font-size:.98rem}
+.pform-actions #p-delete{margin-left:auto;color:var(--muted)}
+@media(max-width:639px){.pform fieldset{padding:14px 14px 12px}.pform label{flex-basis:100%}.pform-actions .btn-primary{width:100%;justify-content:center}.pform-actions #p-delete{margin-left:0}}
+
+/* ---------- Refinement pass 18: profile dropdowns sized to their options ----------
+   Selects take their intrinsic width (the longest option) instead of the column width, so
+   Yes/No/Not sure fields are compact while long-option fields stay wide. */
+.pform label select{width:auto;min-width:9.5em;max-width:100%;padding-right:28px}
+@media(max-width:639px){.pform label select{min-width:12em;min-height:42px}}
+/* the label is a column flexbox with stretch alignment — opt the select out so its intrinsic width applies */
+.pform label select{align-self:flex-start}
+
+/* ---------- Refinement pass 19: Compare — treatment selection as one card with search + live count ---------- */
+.cmp-panel{--wash-c:var(--brand-1);margin:14px 0 16px;padding:16px 18px 14px;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);
+  border-top-color:color-mix(in srgb,var(--wash-c) 48%,var(--line));
+  background:linear-gradient(180deg,color-mix(in srgb,var(--wash-c) 17%,var(--surface)) 0,color-mix(in srgb,var(--wash-c) 7%,var(--surface)) 10%,var(--surface) 22%)}
+.cmp-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:0 0 10px}
+.cmp-label{font-family:var(--font-display);font-weight:700;font-size:1.02rem}
+.cmp-count{font-size:.8rem;font-weight:600;color:var(--c-promising);background:var(--c-promising-bg);border:1px solid var(--c-promising-line);border-radius:999px;padding:3px 10px;font-variant-numeric:tabular-nums}
+.cmp-panel .searchbar{box-shadow:none;background:var(--surface-2);margin:0 0 12px;transition:border-color .15s}
+.cmp-panel .searchbar:focus-within{border-color:color-mix(in srgb,var(--c-promising) 60%,var(--line))}
+.cmp-panel .chips{margin:0;gap:6px}
+.cmp-panel .chip{padding:5px 11px;font-size:.82rem;transition:border-color .15s,box-shadow .15s,color .15s}
+@media(hover:hover){.cmp-panel .chip:hover{border-color:color-mix(in srgb,var(--c-promising) 60%,var(--line));color:var(--text)}}
+.cmp-panel .chip[aria-pressed="true"]{box-shadow:0 0 0 3px color-mix(in srgb,var(--c-promising) 28%,transparent)}
+.cmp-panel .chips.full .chip:not([aria-pressed="true"]){opacity:.5}
+@media(max-width:639px){.cmp-panel{padding:14px 14px 12px}}
+
+/* ---------- Refinement pass 20: profile dropdowns in three standard widths on an aligned grid ----------
+   small = yes/no/unsure-type choices · medium = ordinary multiple choice · large = long option text.
+   Rows are a uniform column grid so fields line up section to section. */
+.pform .row{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px 16px}
+.pform label{flex:none}
+.pform label select{width:13em;max-width:100%}                         /* medium (default) */
+.pform select[name="onset"],.pform select[name="pattern"],.pform select[name="pulsatile"],.pform select[name="pitch"],
+.pform select[name="suddenHL"],.pform select[name="asymmetric"],.pform select[name="somaticModulation"],
+.pform select[name="jawTMJ"],.pform select[name="neck"],.pform select[name="vertigo"],.pform select[name="hyperacusis"],
+.pform select[name="earPainDrainage"],.pform select[name="trauma"],.pform select[name="neuroSymptoms"],
+.pform select[name="sleepProblems"],.pform select[name="distressLevel"]{width:9.5em}   /* small */
+.pform select[name="hearingLoss"],.pform select[name="noiseExposure"]{width:17em}       /* large */
+@media(max-width:639px){.pform .row{grid-template-columns:1fr}.pform label select{min-width:0}
+  .pform select[name="hearingLoss"],.pform select[name="noiseExposure"]{width:100%}}
+
+/* ---------- Refinement pass 21: profile section cards get the site-wide full-frame hover (pointer devices) ---------- */
+@media(hover:hover){.pform fieldset:hover{border-color:color-mix(in srgb,var(--wash-c) 60%,var(--line));box-shadow:var(--shadow),0 0 0 3px color-mix(in srgb,var(--wash-c) 22%,transparent)}}
+
+/* ---------- Refinement pass 22: Research Questions — open questions + process as structured cards ----------
+   Hypothesis banner untouched. Cards use the shared wash/frame/hover; the process line keeps its
+   exact wording but reads as a step flow. */
+.rq-card{--wash-c:var(--brand-1);margin:18px 0 0;padding:20px 22px 16px;
+  border-top-color:color-mix(in srgb,var(--wash-c) 48%,var(--line));
+  background:linear-gradient(180deg,color-mix(in srgb,var(--wash-c) 17%,var(--surface)) 0,color-mix(in srgb,var(--wash-c) 7%,var(--surface)) 10%,var(--surface) 22%)}
+.rq-process{--wash-c:var(--c-promising)}
+.prose .rq-card h2{margin:0 0 12px;font-size:1.2rem;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.rq-open ul{margin:0;padding-left:1.2em}
+.rq-open li{font-size:1.02rem;line-height:1.55}
+.rq-open li a{font-weight:600}
+.rq-distinction{border:1px solid var(--line);border-radius:var(--r-sm);background:var(--surface-2);padding:10px 12px;margin:0 0 14px}
+.rq-flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin:6px 0 14px}
+.rq-flow strong{display:contents}
+.rq-flow .step{display:inline-block;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px;font-weight:600;font-size:.84rem;line-height:1.3}
+.rq-flow .arrow{color:var(--c-promising);font-weight:700}
+.rq-card>p:last-child{margin-bottom:0}
+@media(max-width:639px){.rq-card{padding:16px 16px 12px}}
+
+/* ---------- Refinement pass 23: "Who leads the research" — institution cards on the shared card language ----------
+   Decorative wash rotation (cyan / blue / purple / indigo — never evidence or safety colors),
+   full-frame hover on the whole card, name more prominent, location secondary. */
+.inst-card{--wash-c:var(--brand-1);--hov-c:color-mix(in srgb,var(--wash-c) 60%,var(--line));padding:20px 20px 16px;
+  border-top-color:color-mix(in srgb,var(--wash-c) 48%,var(--line));
+  background:linear-gradient(180deg,color-mix(in srgb,var(--wash-c) 17%,var(--surface)) 0,color-mix(in srgb,var(--wash-c) 7%,var(--surface)) 10%,var(--surface) 22%)}
+.inst-card:nth-child(4n+2){--wash-c:var(--c-promising)}
+.inst-card:nth-child(4n+3){--wash-c:var(--c-emerging)}
+.inst-card:nth-child(4n+4){--wash-c:var(--brand-2)}
+.inst-card h3{font-size:1.15rem;font-weight:700;line-height:1.3;margin:0 0 2px}
+.inst-card .inst-loc{margin:0 0 10px;font-size:.84rem}
+.inst-card p.small{line-height:1.55}
+@media(hover:hover){.inst-card:hover{border-color:var(--hov-c);box-shadow:var(--shadow),0 0 0 3px color-mix(in srgb,var(--hov-c) 22%,transparent)}}
+@media(max-width:639px){.inst-card{padding:16px 16px 12px}}
+
+/* ---------- Refinement pass 24: About page — major sections as restrained cards ----------
+   Visible sections become cards with the shared wash/frame/hover; the collapsible deep-methodology
+   sections keep their collapsed behavior but take the same card shell. Wording untouched. */
+.about-card{--wash-c:var(--brand-1);--hov-c:color-mix(in srgb,var(--wash-c) 60%,var(--line));margin:18px 0 0;padding:20px 22px 16px;
+  border-top-color:color-mix(in srgb,var(--wash-c) 48%,var(--line));
+  background:linear-gradient(180deg,color-mix(in srgb,var(--wash-c) 17%,var(--surface)) 0,color-mix(in srgb,var(--wash-c) 7%,var(--surface)) 10%,var(--surface) 22%)}
+.about-publisher{--wash-c:var(--c-promising)}
+.about-distinction{--wash-c:var(--brand-2)}
+.prose .about-card h2{margin:0 0 12px;font-size:1.22rem;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.about-card>:last-child{margin-bottom:0}
+.about-card>p:first-of-type{margin-top:0}
+.about-duo{margin:4px 0 14px;gap:10px}
+.about-duo .cell{padding:13px 15px;font-size:.95rem;line-height:1.55}
+.about-duo .cell strong{display:block;font-family:var(--font-display);font-size:1.05rem;margin:0 0 4px}
+@media(max-width:560px){.about-duo{grid-template-columns:1fr}}
+.prose details.sec{--wash-c:var(--brand-1);--hov-c:color-mix(in srgb,var(--wash-c) 60%,var(--line));border:1px solid var(--line);border-radius:var(--r);
+  margin:14px 0 0;padding:0 22px;background:var(--surface);box-shadow:var(--shadow);
+  border-top-color:color-mix(in srgb,var(--wash-c) 48%,var(--line));
+  background:linear-gradient(180deg,color-mix(in srgb,var(--wash-c) 12%,var(--surface)) 0,color-mix(in srgb,var(--wash-c) 5%,var(--surface)) 10%,var(--surface) 22%);
+  transition:border-color .15s,box-shadow .15s}
+.prose details.sec>summary{padding:16px 0;font-size:1.12rem}
+.prose details.sec[open]{padding-bottom:14px}
+.prose details.sec[open]>summary{border-bottom:1px solid var(--line);margin-bottom:12px}
+@media(hover:hover){.about-card:hover,.prose details.sec:hover{border-color:var(--hov-c);box-shadow:var(--shadow),0 0 0 3px color-mix(in srgb,var(--hov-c) 22%,transparent)}}
+@media(max-width:639px){.about-card{padding:16px 16px 12px}.prose details.sec{padding:0 16px}}
+
+/* ---------- Refinement pass 25: treatment-detail template — summary visible, deeper material in cards / expanders ----------
+   Applies to the JS renderer (treatment.html?id=) and the static generator (treatments/<id>/) alike:
+   one template each, all 38 pages. Data untouched. */
+.sec-card{--wash-c:var(--brand-1);--hov-c:color-mix(in srgb,var(--wash-c) 60%,var(--line));margin:16px 0 0;padding:20px 22px 16px;
+  border-top-color:color-mix(in srgb,var(--wash-c) 48%,var(--line));
+  background:linear-gradient(180deg,color-mix(in srgb,var(--wash-c) 17%,var(--surface)) 0,color-mix(in srgb,var(--wash-c) 7%,var(--surface)) 10%,var(--surface) 22%)}
+.sec-blue{--wash-c:var(--c-promising)}
+.sec-indigo{--wash-c:var(--brand-2)}
+.prose .sec-card h2{margin:0 0 12px;font-size:1.22rem;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.prose .sec-card h3{font-size:1rem;margin-top:1em}
+.sec-card>:last-child{margin-bottom:0}
+.sec-card .plain-block,.sec-card .eprofile{margin:12px 0 0}
+.sec-card .rdetail{margin:10px 0 0}
+.ld-full{gap:10px;margin:4px 0 12px}
+.ld-full .cell{padding:13px 15px}
+.ld-full .cell .k{font-size:.72rem;line-height:1.4}
+.ld-full .cell .v{font-size:1.05rem;margin:4px 0 6px}
+.ld-full .cell p{margin:0;line-height:1.5}
+@media(max-width:560px){.ld-full{grid-template-columns:1fr}}
+@media(hover:hover){.sec-card:hover{border-color:var(--hov-c);box-shadow:var(--shadow),0 0 0 3px color-mix(in srgb,var(--hov-c) 22%,transparent)}}
+.tpage .tl-key{margin-top:4px}
+@media(max-width:639px){.sec-card{padding:16px 16px 12px}}
+
+/* ---------- Refinement pass 26: Top 10 #4–#10 rejoin the card family (per owner) ----------
+   All ten ranked cards now share the Treatments-page card background (surface card, restrained
+   category wash fading by ~20% height, category-tinted 1px top edge). #1–#3 keep their stronger
+   3px solid category top edge as the Top-3 distinction; #4–#10 get the restrained tinted edge.
+   Content, badges, rank chips, duo, expander behavior and the full-frame hover are unchanged. */
+.card.tcard.rcard-top{
+  background:linear-gradient(180deg,color-mix(in srgb,var(--cat-c,var(--c-promising)) 20%,var(--surface)) 0,color-mix(in srgb,var(--cat-c,var(--c-promising)) 8%,var(--surface)) 10%,var(--surface) 20%)}
+.card.tcard.rcard-rest{
+  background:linear-gradient(180deg,color-mix(in srgb,var(--cat-c,var(--c-promising)) 20%,var(--surface)) 0,color-mix(in srgb,var(--cat-c,var(--c-promising)) 8%,var(--surface)) 10%,var(--surface) 20%);
+  border:1px solid var(--line);
+  border-top-color:color-mix(in srgb,var(--cat-c,var(--c-promising)) 48%,var(--line));
+  border-radius:var(--r);box-shadow:var(--shadow);
+  padding:18px 16px 0;align-self:stretch}
+.card.tcard.rcard-rest .duo .cell{background:var(--surface-2)}
+.card.tcard.rcard-rest details.rmore{margin:auto -16px 0;padding:0 16px;border-top:1px solid var(--line)}
+.card.tcard.rcard-rest details.rmore[open]{padding-bottom:12px}
+/* the old boxless-entry outer hover frame is replaced by the standard card hover */
+.card.tcard.rcard-rest::after{content:none}
+@media(hover:hover){
+  .card.tcard.rcard-rest:hover{border-color:var(--hov-c);
+    box-shadow:var(--shadow),0 0 0 3px color-mix(in srgb,var(--hov-c) 22%,transparent)}
+}
+@media(max-width:639px){.card.tcard.rcard-rest{padding-top:18px}}
+
+/* ---------- Staging review round 1: evidence-situation accents + Emerging & Unproven entry ----------
+   Homepage section accents reuse the existing evidence palette: amber (--c-watch, weaker/negative evidence)
+   for "What hasn't worked", violet (--c-emerging) for the Emerging, Experimental & Unproven entry.
+   Heading text stays in --text, so text contrast is unchanged; only the accent bar, divider and a faint
+   wash change. The entry panel uses the site's shared wash-panel recipe. */
+body[data-page="index"] .section.sec-watch{border-top-color:color-mix(in srgb,var(--c-watch) 55%,var(--line));
+  /* warm wash on the heading side only; it fades out before the right-hand "See all" link so link contrast is unchanged */
+  background:linear-gradient(100deg,color-mix(in srgb,var(--c-watch) 9%,transparent) 0,transparent 58%) top left/100% 170px no-repeat}
+body[data-page="index"] .sec-watch .section-head h2::before{background:var(--c-watch);width:46px;height:4px}
+body[data-page="index"] .section.sec-eu{border-top-color:color-mix(in srgb,var(--c-emerging) 45%,var(--line))}
+body[data-page="index"] .sec-eu .section-head h2::before{background:var(--c-emerging);width:46px;height:4px}
+.eu-entry{--wash-c:var(--c-emerging);--hov-c:color-mix(in srgb,var(--wash-c) 60%,var(--line));
+  border-top-color:color-mix(in srgb,var(--wash-c) 48%,var(--line));
+  background:linear-gradient(180deg,color-mix(in srgb,var(--wash-c) 17%,var(--surface)) 0,color-mix(in srgb,var(--wash-c) 7%,var(--surface)) 35%,var(--surface) 80%)}
+.eu-entry p{max-width:62em}
+.eu-entry .btn{border-color:color-mix(in srgb,var(--wash-c) 45%,var(--line));min-height:44px}
+.eu-entry-t{margin:22px 0 4px}
+@media(max-width:639px){.eu-entry .btn{width:100%;justify-content:center}}
+
+/* ---------- Staging review round 2 ----------
+   (1) "What hasn't worked" takes the section's amber: --c-watch in dark; in light the same amber mixed 75% with
+       --text so the large heading keeps comfortable contrast. The rest of the heading keeps the normal color.
+   (2) Treatments-page Emerging, Experimental & Unproven panel: restrained crimson from the site's own palette
+       (#c23b5f, the "Pulsatile & Structural" category color) instead of violet; left accent as on other feature rows. */
+body[data-page="index"] .sec-watch .hw-em{color:var(--c-watch)}
+:root[data-theme="light"] body[data-page="index"] .sec-watch .hw-em{color:color-mix(in srgb,var(--c-watch) 75%,var(--text))}
+/* Review round 3: the panel is lit by a soft crimson glow (same #c23b5f) instead of only a red border:
+   a light crimson fill across the whole panel, diffused corner glows, and an inset edge glow that fades inward.
+   The outer halo stays within ~14px. No animation. Light mode uses lower strengths. */
+.eu-entry-t{--wash-c:#c23b5f;--g-fill:13%;--g-corner:30%;--g-edge:38%;--g-halo:50%;
+  border:1px solid color-mix(in srgb,var(--wash-c) 60%,var(--line));
+  border-left:4px solid color-mix(in srgb,var(--wash-c) 90%,var(--surface));
+  background:
+    radial-gradient(70% 150% at 0% 0%,color-mix(in srgb,var(--wash-c) var(--g-corner),transparent) 0,transparent 70%),
+    radial-gradient(70% 150% at 100% 100%,color-mix(in srgb,var(--wash-c) var(--g-corner),transparent) 0,transparent 70%),
+    color-mix(in srgb,var(--wash-c) var(--g-fill),var(--surface));
+  box-shadow:inset 0 0 34px 0 color-mix(in srgb,var(--wash-c) var(--g-edge),transparent),var(--shadow),0 0 18px -6px color-mix(in srgb,var(--wash-c) var(--g-halo),transparent)}
+:root[data-theme="light"] .eu-entry-t{--g-fill:7%;--g-corner:18%;--g-edge:22%;--g-halo:35%}
+/* description text a step stronger than --muted so it stays comfortably readable over the glow */
+.eu-entry-t p.muted{color:color-mix(in srgb,var(--muted) 55%,var(--text))}
+.eu-entry-t .btn{background:color-mix(in srgb,var(--wash-c) 18%,var(--surface));border-color:color-mix(in srgb,var(--wash-c) 70%,var(--line))}
+:root[data-theme="light"] .eu-entry-t .btn{background:color-mix(in srgb,var(--wash-c) 8%,var(--surface))}
+@media(hover:hover){
+  /* keep the glow on hover (the site-wide card hover would otherwise replace it) and add the usual hover ring */
+  .card.eu-entry.eu-entry-t:hover{border-color:color-mix(in srgb,var(--wash-c) 80%,var(--line));
+    box-shadow:inset 0 0 34px 0 color-mix(in srgb,var(--wash-c) var(--g-edge),transparent),var(--shadow),0 0 0 3px color-mix(in srgb,var(--wash-c) 22%,transparent),0 0 18px -6px color-mix(in srgb,var(--wash-c) var(--g-halo),transparent)}
+  .eu-entry-t .btn:hover{background:color-mix(in srgb,var(--wash-c) 28%,var(--surface))}
+  :root[data-theme="light"] .eu-entry-t .btn:hover{background:color-mix(in srgb,var(--wash-c) 14%,var(--surface))}
+}
+
+/* ---------- Staging: Search everything — Emerging, Experimental & Unproven results ----------
+   Same row/wash recipe as every other result type; the collection's crimson (as on the Treatments-page panel).
+   The type label mixes the crimson with --text so it keeps text contrast in both themes. */
+.sr-emerging-unproven{--wash-c:#c23b5f}
+.sr-emerging-unproven .type{color:color-mix(in srgb,var(--wash-c) 70%,var(--text))}
+
+/* ---------- Staging: homepage stat label "latest automated research scan" ----------
+   The strip keeps labels on one line (white-space:nowrap); this longer label may wrap inside its own cell
+   so it is never clipped at tablet widths. Other stat labels are unchanged. */
+.stats-strip #stat-updated + span{display:block;white-space:normal}
